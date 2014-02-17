@@ -8,6 +8,8 @@ module Rulers
       if env['PATH_INFO'] == '/favicon.ico'
         return [404,
           {'Content-Type' => 'text/html'}, []]
+      elsif env['PATH_INFO'] == "/"
+        env['PATH_INFO'] = "/quotes/a_quote"
       end 
 
       klass, act = get_controller_and_action(env)
