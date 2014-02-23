@@ -3,6 +3,8 @@ require "multi_json"
 module Rulers
   module Model
     class FileModel
+      attr_reader :id
+
       def initialize (filename)
         @filename = filename
 
@@ -34,6 +36,18 @@ module Rulers
         files = Dir["db/quotes/*json"]
         files.map { |f| FileModel.new f }
       end 
+
+      def self.save(model)
+        File.open("db/quotes/#{model.id}.json", "w") do |f|
+          f.write <<-TEMPLATE
+      {
+        "submitter": "#{hash ["submitter"]}",
+        "quote": "#{hash["quote"]}",
+        "attribution": "#{hash["attribution"]}"
+      }
+        TEMPLATE
+        end
+      end
 
       def self.create(attrs)
         hash = {}
