@@ -1,7 +1,9 @@
 require "erubis"
+require "rulers/file_model"
 
 module Rulers
   class Controller
+    include Rulers::Model 
     def initialize(env)
       @env = env
     end 
@@ -11,6 +13,7 @@ module Rulers
     end 
 
     def render(view_name, locals = {})
+      puts "RENDERING"
       filename = File.join "app", "views", 
         controller_name, "#{view_name}.html.erb"
       template = File.read filename
