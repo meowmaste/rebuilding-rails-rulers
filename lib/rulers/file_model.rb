@@ -32,6 +32,15 @@ module Rulers
         end 
       end 
 
+      # def self.find_by_submitter(submitter_id)
+        # files = Dir["db/quotes?*.json"]
+        # files.each do |file|
+          # if file { "submitter" == submitter_id }
+            # file.map { |f| FileModel.new f }
+          # end 
+        # end 
+      # end 
+
       def self.all
         files = Dir["db/quotes/*json"]
         files.map { |f| FileModel.new f }
