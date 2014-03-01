@@ -14,12 +14,14 @@ module Rulers
     end 
 
     def render(view_name, locals = {})
-      puts "RENDERING"
       filename = File.join "app", "views", 
         controller_name, "#{view_name}.html.erb"
       template = File.read filename
       eruby = Erubis::Eruby.new(template)
       eruby.result locals.merge(:env => env)
+      instance_variables.each do |var|
+        eruby.instance_variable_set(var, instance_variable_get(var))
+      end 
     end 
 
     def controller_name
@@ -38,7 +40,7 @@ module Rulers
       @response = Rack::Response.new(a, status, headers)
     end
 
-    def get_response # Only for Rulers
+    def get_response 
       @response
     end  
 
